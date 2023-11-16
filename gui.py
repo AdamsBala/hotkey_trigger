@@ -5,16 +5,22 @@ ahk = AHK()
 
 
 def find_window(title, run_cmd):
-    # Check if the Windows Terminal is running
+    """
+    Searches for a window with the specified title and brings it to the foreground.
+    If the window is not found, executes a command to open the window.
+
+    Parameters:
+    title (str): The title of the window to search for.
+    run_cmd (str): The command to execute if the window is not found.
+
+    Returns:
+    object: An object representing the found window, or None if the window is not found.
+    """
     win = ahk.find_window(title=title)
     if win is None:
-        # If Windows Terminal is not running, start it
-        print(run_cmd)
-        ahk.run_script(run_cmd)  # Open windows terminal
-        print(run_cmd)
+        ahk.run_script(run_cmd)
         time.sleep(1)
 
-    # Bring Windows Terminal to the foreground
     win = ahk.find_window(title=title)
     return win
 
@@ -29,9 +35,9 @@ def process_user_input(command):
 def input_gui():
     user_input = ahk.input_box(prompt='Command:', title='Enter Command')
     if user_input:
-        if user_input in command_dictionary:
+        if user_input in predefined_commands:
             print(f"Starting Process: {user_input}")
-            command_dictionary[user_input]()
+            predefined_commands[user_input]()
         else:
             process_user_input(user_input)
 
@@ -68,7 +74,7 @@ def vagrant_ssh():
 # ALT + Z
 ahk.add_hotkey('!z', callback=hotkey_triggered)
 
-command_dictionary = {
+predefined_commands = {
     "notepad": start_notepad,
     "vagrantup": vagrant_up,
     "vagrantssh": vagrant_ssh
