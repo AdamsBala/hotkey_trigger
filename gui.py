@@ -66,20 +66,13 @@ def vagrant_ssh():
         ahk.send_input('vagrant\n')
 
 
-def genshin_impact():
-    win = find_window('ahk_exe launcher.exe', 'Run C:\\Program Files\\Genshin Impact\\launcher.exe')
-    if win:
-        win.activate()
-
-
 # ALT + Z
 ahk.add_hotkey('!z', callback=hotkey_triggered)
 
 command_dictionary = {
     "notepad": start_notepad,
     "vagrantup": vagrant_up,
-    "vagrantssh": vagrant_ssh,
-    "genshin": genshin_impact
+    "vagrantssh": vagrant_ssh
 }
 
 # start the hotkey process thread
