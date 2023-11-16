@@ -1,5 +1,4 @@
 from ahk import AHK
-# import subprocess
 import time
 
 ahk = AHK()
